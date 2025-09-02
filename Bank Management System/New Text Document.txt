@@ -1,0 +1,281 @@
+Tell me about your project.”
+
+You could say:
+
+“I built a console-based Bank Account Management System using Core Java and OOP. It supports creating savings and current accounts, depositing and withdrawing money, and logging transactions. I used inheritance and polymorphism to create flexible account types, and used Java collections like HashMap and ArrayList to store account and transaction data.”
+
+✅ Q1. Can you briefly explain your Bank Account Management System project?
+Answer:
+
+This is a console-based Java application that allows users to manage bank accounts. Users can create accounts (Savings or Current), deposit and withdraw money, and view transaction history. I used object-oriented programming concepts like abstraction, inheritance, polymorphism, and encapsulation to structure the code effectively.
+
+Explanation:
+
+Give a short summary of the features and technical concepts used.
+
+Highlight it's object-oriented and uses Java collections.
+
+Q2. Why did you use an abstract class for Account?
+Answer:
+
+I used an abstract class because Account represents a general concept of a bank account. I wanted to provide common properties and methods like accountNumber, balance, and deposit() but leave the withdraw() method abstract so each account type (Savings or Current) could implement it differently.
+
+Explanation:
+
+Abstract classes are used when:
+
+You want to share common code.
+
+You need different implementations of a method (withdraw()).
+
+✅ Q3. What OOP principles did you use in this project?
+Answer:
+
+I used all four OOP principles:
+
+Encapsulation: Fields are private or protected with getters/setters.
+
+Inheritance: SavingsAccount and CurrentAccount inherit from Account.
+
+Abstraction: Account is abstract and cannot be directly instantiated.
+
+Polymorphism: withdraw() method is overridden with different behavior in subclasses.
+
+Explanation:
+
+Be clear and confident when mapping features to OOP terms.
+
+✅ Q4. Why did you use HashMap and ArrayList?
+Answer:
+
+I used a HashMap to store accounts because each account has a unique account number, which works well as a key. It gives constant-time lookup. I used an ArrayList to store transactions since I needed to maintain the order in which transactions happened.
+
+Explanation:
+
+HashMap<String, Account> → Fast access by account number.
+
+ArrayList<Transaction> → Maintains insertion order.
+
+✅ Q5. How would you extend this project to add file storage?
+Answer:
+
+I would use Java File I/O to write account and transaction data to .txt or .csv files when the application exits and read it back at startup. For more structure, I could use ObjectOutputStream and ObjectInputStream to serialize the objects.
+
+Explanation:
+
+Show you understand serialization and file persistence.
+
+💡 SECTION 2: Java Concepts from the Project
+✅ Q6. What’s the difference between an abstract class and an interface? Why use an abstract class here?
+Answer:
+
+Abstract classes can have both implemented and abstract methods.
+
+Interfaces (prior to Java 8) could only have abstract methods.
+
+In this project, I used an abstract class because I wanted to provide a default deposit() method and keep withdraw() abstract.
+
+Explanation:
+
+You're showing understanding of when to use what.
+
+✅ Q7. How is polymorphism used in your project?
+Answer:
+
+I used runtime polymorphism. The Bank class stores Account references, but at runtime, the actual object could be a SavingsAccount or CurrentAccount. So when calling withdraw(), the method that's actually executed depends on the object type.
+
+Explanation:
+
+Account acc = new SavingsAccount(...);
+
+acc.withdraw(1000); → Dynamic method dispatch
+
+✅ Q8. What happens if you try to withdraw more than allowed?
+Answer:
+
+The overridden withdraw() method in SavingsAccount checks if the balance after withdrawal will fall below ₹500. If it does, it prints an error message. Similarly, the CurrentAccount class allows overdraft up to ₹-10,000.
+
+Explanation:
+
+You're showing that you handled business logic using polymorphism.
+
+🔐 SECTION 3: Behavioral / Resume Fit Questions
+✅ Q9. What challenges did you face during this project?
+Answer:
+
+One challenge was designing the inheritance structure correctly — choosing which behaviors to put in the base class vs. the child classes. I also initially used lists to store accounts, but then realized using a HashMap would be more efficient for lookups.
+
+Explanation:
+
+Mentioning small but thoughtful decisions impresses interviewers.
+
+✅ Q10. If we gave you time, how would you improve this project?
+Answer:
+
+Add login/authentication using PINs
+
+Implement file-based storage using serialization
+
+Add a GUI using JavaFX or Swing
+
+Make it multi-user with a menu per user
+
+Use unit testing (JUnit) for verifying features
+
+Explanation:
+
+Shows you're capable of thinking beyond the assignment.
+
+
+
+
+-------------------------------------------------------------------------------------------------------
+
+
+📁 Files Included:
+Main.java – the entry point
+
+Account.java – the abstract parent class (base for all accounts)
+
+SavingsAccount.java – child of Account
+
+CurrentAccount.java – child of Account
+
+Transaction.java – a record for each action
+
+Bank.java – controller class managing accounts & transactions
+
+🔍 FILE EXPLANATIONS
+1. Main.java — 🚀 Starts the application
+
+
+public class Main {
+    public static void main(String[] args) {
+        // App logic starts here
+    }
+}
+
+Acts as the driver class.
+
+Displays menu to user.
+
+Takes user input via Scanner.
+
+Calls methods from the Bank class to perform actions.
+
+Demonstrates control flow and how your objects interact.
+
+🔁 You only ever run this file directly.
+
+2. Account.java — 🧱 Abstract base class for all account types
+
+public abstract class Account {
+    protected String accountNumber;
+    protected String holderName;
+    protected double balance;
+
+    public abstract void withdraw(double amount);  // Abstract method
+}
+Represents a general bank account (template).
+
+Declares shared fields: accountNumber, holderName, balance
+
+Implements encapsulation (fields are protected)
+
+Declares withdraw() as an abstract method, so child classes must implement their own withdrawal logic.
+
+🔑 OOP Concepts Used:
+
+Abstraction (class is abstract, cannot be directly used)
+
+Encapsulation (fields protected, accessed via methods)
+
+Polymorphism (child classes override withdraw())
+
+3. SavingsAccount.java — 💰 Represents a savings account
+
+
+public class SavingsAccount extends Account {
+    @Override
+    public void withdraw(double amount) {
+        // Withdraw only if min balance is maintained
+    }
+}
+Subclass of Account
+
+Enforces a minimum balance
+
+Overrides the withdraw() method with savings-specific rules
+
+🔑 OOP Concepts Used:
+
+Inheritance (inherits from Account)
+
+Polymorphism (custom withdraw() behavior)
+
+4. CurrentAccount.java — 🏦 Represents a current account
+
+
+public class CurrentAccount extends Account {
+    @Override
+    public void withdraw(double amount) {
+        // Allows overdraft up to a limit
+    }
+}
+Also a subclass of Account
+
+Allows withdrawal even if it leads to negative balance, within overdraft limits
+
+Provides its own withdraw() logic
+
+🔑 OOP Concepts Used:
+
+Same as SavingsAccount: Inheritance + Polymorphism
+
+5. Transaction.java — 📄 Represents a single deposit/withdraw action
+
+
+public class Transaction {
+    private String accountNumber;
+    private String type; // "Deposit" or "Withdrawal"
+    private double amount;
+    private LocalDateTime date;
+}
+
+A simple data class for logging actions
+
+Stores the account number, type, amount, and timestamp
+
+You could extend this later to export to files, generate reports, etc.
+
+🔑 OOP: Simple class with encapsulation
+
+6. Bank.java — 🧠 Brain of the system — manages everything
+
+
+public class Bank {
+    private Map<String, Account> accounts = new HashMap<>();
+    private List<Transaction> transactions = new ArrayList<>();
+}
+
+Stores accounts in a HashMap (for fast lookup)
+
+Stores transactions in a List
+
+Has all logic to:
+
+Create accounts
+
+Deposit/withdraw
+
+Show account info
+
+Show transaction logs
+
+🔑 OOP Concepts Used:
+
+Encapsulation: accounts and transactions are private
+
+Aggregation: Bank has-a list of accounts and transactions
+
+Abstraction: Hides implementation from Main
